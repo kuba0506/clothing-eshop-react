@@ -5,34 +5,43 @@ import { sigInWithGoogle, auth } from '../../firebase/firebase.utils';
 import './SignIn.scss';
 
 const SignIn = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const defaultState = { email: '', password: '' };
+    const [signIn, setSignIn] = useState(defaultState);
 
     const onSubmit = async e => {
         e.preventDefault();
+        const { email, password } = signIn;
+
         try {
             await auth.signInWithEmailAndPassword(email, password);
-            setPassword('');
-            setEmail('');
+            setSignIn(defaultState);
         } catch (error) {
             console.error('error while logging in', error);
         }
     };
 
-    return (
-        <div className="sign-in">
-            <div className="title">
-                <h2>I already have an account</h2>
-                <span>Sign in with your email and password</span>
-            </div>
+    const onChange = e => {
+        e.preventDefault();
+        const {
+            target: { name, value }
+        } = e;
 
+        setSignIn(signIn => ({ ...signIn, [name]: value }));
+    };
+
+    const renderForm = () => {
+        const { email, password } = signIn;
+
+        return (
             <form onSubmit={onSubmit}>
-                <FormInput onChange={e => setEmail(e.target.value)} label="Email" type="email" value={email} />
+                <FormInput onChange={onChange} label="Email" type="email" name="email" value={email} required />
                 <FormInput
-                    onChange={e => setPassword(e.target.value)}
+                    onChange={onChange}
                     label="Password"
                     type="password"
+                    name="password"
                     value={password}
+                    required
                 />
                 <div className="buttons">
                     <CustomButton type="submit">Sign in</CustomButton>
@@ -41,6 +50,16 @@ const SignIn = () => {
                     </CustomButton>
                 </div>
             </form>
+        );
+    };
+
+    return (
+        <div className="sign-in">
+            <div className="title">
+                <h2>I already have an account</h2>
+                <span>Sign in with your email and password</span>
+            </div>
+            {renderForm()}
         </div>
     );
 };

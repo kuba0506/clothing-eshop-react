@@ -25,15 +25,14 @@ const SingUp = () => {
 
         try {
             const { user } = await auth.createUserWithEmailAndPassword(email, password);
-            await createUserProfileDocument(user, {displayName});
-            setSignUp(singUp => ({ ...singUp, displayName, email, password, confirmPassword }));
+            await createUserProfileDocument(user, { displayName });
+            setSignUp(defaultState);
         } catch (error) {
             console.error('Error during singUp', error);
         }
     };
 
     const onChange = e => {
-        // e.persist();
         e.preventDefault();
         const {
             target: { name, value }
