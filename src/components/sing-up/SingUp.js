@@ -12,12 +12,11 @@ const SingUp = () => {
         password: '',
         confirmPassword: ''
     };
-    const [singUpObject, setSingUpObject] = useState(defaultState);
+    const [singUp, setSignUp] = useState(defaultState);
 
     const onSubmit = async e => {
         e.preventDefault();
-        const { displayName, email, password, confirmPassword } = singUpObject;
-        console.log({ displayName, email, password, confirmPassword });
+        const { displayName, email, password, confirmPassword } = singUp;
 
         if (password !== confirmPassword) {
             alert('Password do not match');
@@ -27,7 +26,7 @@ const SingUp = () => {
         try {
             const { user } = await auth.createUserWithEmailAndPassword(email, password);
             await createUserProfileDocument(user, {displayName});
-            setSingUpObject(singUpObject);
+            setSignUp(singUp => ({ ...singUp, displayName, email, password, confirmPassword }));
         } catch (error) {
             console.error('Error during singUp', error);
         }
@@ -40,11 +39,11 @@ const SingUp = () => {
             target: { name, value }
         } = e;
 
-        setSingUpObject(singUpObject => ({ ...singUpObject, [name]: value }));
+        setSignUp(singUp => ({ ...singUp, [name]: value }));
     };
 
     const renderForm = () => {
-        const { displayName, email, password, confirmPassword } = singUpObject;
+        const { displayName, email, password, confirmPassword } = singUp;
 
         return (
             <form className="sing-up-form" onSubmit={onSubmit}>
