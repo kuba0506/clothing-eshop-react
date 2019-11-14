@@ -19,7 +19,7 @@ const App = () => {
 
             // store in firestore
             const userRef = await createUserProfileDocument(userAuth);
-            // store in component state
+            // store in redux
             userRef.onSnapshot(snapShot => {
                 setCurrentUser(currentUser => ({
                     ...currentUser,

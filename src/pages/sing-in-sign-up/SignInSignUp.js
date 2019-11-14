@@ -3,11 +3,11 @@ import SignIn from '../../components/sign-in/SignIn';
 import SingUp from '../../components/sing-up/SingUp';
 import './SignInSignUp.scss';
 
-const SignInSignUp = () => {
+const SignInSignUp = props => {
     return (
         <div className="sign-in-sign-up">
-            <SignIn />
-            <SingUp />
+            <SignIn {...props} />
+            <SingUp {...props} />
         </div>
     );
 };

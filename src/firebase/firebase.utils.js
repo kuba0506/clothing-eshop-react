@@ -19,7 +19,6 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     const userRef = firestore.doc(`users/${userAuth.uid}`); // crud operation
     const snapShot = await userRef.get(); // represents data
 
-    
     // create user in firestore
     if (!snapShot.exists) {
         const { displayName, email } = userAuth;
@@ -50,6 +49,9 @@ export const firestore = firebase.firestore();
 
 const provider = new firebase.auth.GoogleAuthProvider();
 // const provider = new firebase.auth.GoogleAuthProvider({prompt: 'select_account'});
-export const sigInWithGoogle = () => auth.signInWithPopup(provider);
+export const sigInWithGoogle = async cbk => {
+    await auth.signInWithPopup(provider);
+    cbk();
+};
 
 export default firebase;
