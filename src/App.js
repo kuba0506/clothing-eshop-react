@@ -7,7 +7,7 @@ import SignInSignUp from './pages/sing-in-sign-up/SignInSignUp';
 import Header from './components/header/Header';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { connect } from 'react-redux';
-import { setCurrentUser } from './redux/actions';
+import { UserActions } from './redux/user/user.actions';
 
 const App = ({ setCurrentUser, currentUser }) => {
     useEffect(() => {
@@ -57,7 +57,7 @@ const mapStateToProps = ({ user }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setCurrentUser: user => dispatch(setCurrentUser(user))
+    setCurrentUser: user => dispatch(UserActions.setCurrentUser(user))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
