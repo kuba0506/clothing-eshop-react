@@ -4,7 +4,7 @@ import CustomButton from './../cutom-button/CustomButton';
 import { sigInWithGoogle, auth } from '../../firebase/firebase.utils';
 import './SignIn.scss';
 
-const redirectToHome = history => history.push('/');
+// const redirectToHome = history => history.push('/');
 
 const SignIn = ({ history }) => {
     const defaultState = { email: '', password: '' };
@@ -17,7 +17,7 @@ const SignIn = ({ history }) => {
         try {
             await auth.signInWithEmailAndPassword(email, password);
             setSignIn(defaultState);
-            redirectToHome(history);
+            // redirectToHome(history);
         } catch (error) {
             console.error('error while logging in', error);
         }
@@ -48,7 +48,7 @@ const SignIn = ({ history }) => {
                 />
                 <div className="buttons">
                     <CustomButton type="submit">Sign in</CustomButton>
-                    <CustomButton otherclass="google-sign-in" onClick={() => sigInWithGoogle(() => redirectToHome(history))}>
+                    <CustomButton otherclass="google-sign-in" onClick={() => sigInWithGoogle()}>
                         Sign in with Google
                     </CustomButton>
                 </div>
