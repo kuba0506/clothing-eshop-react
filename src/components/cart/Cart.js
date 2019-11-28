@@ -1,14 +1,30 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import CustomButton from '../cutom-button/CustomButton';
 import './Cart.scss';
 
-const Cart = () => {
+const Cart = ({ cartItems }) => {
+    const renderItems = () => {
+        return (
+            cartItems && (
+                <div className="cart-items">
+                    {cartItems.map(item => {
+                        return <span key="item.id">{item.name}</span>;
+                    })}
+                </div>
+            )
+        );
+    };
     return (
         <div className="cart-dropdown">
-            <div className="cart-items"></div>
-            <CustomButton>GO TO CHEECKOUT</CustomButton>
+            {renderItems()}
+            <CustomButton>GO TO CHECKOUT</CustomButton>
         </div>
     );
 };
 
-export default Cart;
+const mapStateToProps = ({ cart: { cartItems } }) => ({
+    cartItems
+});
+
+export default connect(mapStateToProps)(Cart);

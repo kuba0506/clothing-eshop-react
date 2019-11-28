@@ -4,6 +4,7 @@ import logger from 'redux-logger';
 import reducers from './reducers/index';
 
 const INITIAL_STATE = {};
-const middlewares = [logger];
+// const middlewares = [logger];
+const middlewares = [];
 
 export default createStore(reducers, INITIAL_STATE, composeWithDevTools(applyMiddleware(...middlewares)));
