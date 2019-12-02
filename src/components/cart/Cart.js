@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { CartSelectors } from '../../redux/cart/cart.selectors';
 import CustomButton from '../cutom-button/CustomButton';
 import CartItem from '../cart-item/CartItem';
 import './Cart.scss';
 
 const Cart = ({ cartItems }) => {
-    // console.log(cartItems);
     const renderItems = () => {
         return (
             cartItems && (
@@ -26,9 +26,8 @@ const Cart = ({ cartItems }) => {
 };
 
 const mapStateToProps = state => {
-    console.log(state);
     return {
-        cartItems: state.cart.cartItems
+        cartItems: CartSelectors.selectCartItems(state)
     };
 };
 
