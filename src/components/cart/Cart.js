@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'; // add access to history object
 import { createStructuredSelector } from 'reselect';
 import { CartSelectors } from '../../redux/cart/cart.selectors';
+import {CartActions} from '../../redux/cart/cart.actions';
 import CustomButton from '../cutom-button/CustomButton';
 import CartItem from '../cart-item/CartItem';
 import './Cart.scss';
 
-const Cart = ({ cartItems, history }) => {
+const Cart = ({ cartItems, history, dispatch }) => {
     const renderItems = () => {
         return (
             cartItems && (
@@ -26,7 +27,10 @@ const Cart = ({ cartItems, history }) => {
     return (
         <div className="cart-dropdown">
             {renderItems()}
-            <CustomButton onClick={() => history.push('/checkout')}>GO TO CHECKOUT</CustomButton>
+            <CustomButton onClick={() => {
+                history.push('/checkout');
+                dispatch(CartActions.toggleCartHidden());;
+            }}>GO TO CHECKOUT</CustomButton>
         </div>
     );
 };
