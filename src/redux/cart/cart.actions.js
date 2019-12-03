@@ -8,7 +8,20 @@ const addItemToCart = item => ({
     payload: item
 });
 
+const deductItemFromCart = item => ({
+    type: CartActionTypes.DEDUCT_CART_ITEM,
+    payload: item
+});
+
+const removeItemFromCart = item => ({
+    type: CartActionTypes.REMOVE_ITEM,
+    payload: item
+});
+
+
 export const CartActions = {
     toggleCartHidden,
-    addItemToCart
+    addItemToCart,
+    removeItemFromCart,
+    deductItemFromCart
 };
