@@ -1,7 +1,7 @@
 import React from 'react';
 import SignIn from '../../components/sign-in/SignIn';
 import SingUp from '../../components/sing-up/SingUp';
-import './SignInSignUp.scss';
+import './SignInSignUpPage.scss';
 
 const SignInSignUp = props => {
     return (

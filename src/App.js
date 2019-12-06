@@ -1,11 +1,11 @@
 import React, { Fragment, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import './App.css';
-import Home from './pages/home/Home';
-import Shop from './pages/shop/Shop';
-import SignInSignUp from './pages/sing-in-sign-up/SignInSignUp';
-import Checkout from './pages/checkout/Checkout';
+import Home from './pages/home/HomePage';
+import ShopPage from './pages/shop/ShopPage';
+import SignInSignUp from './pages/sing-in-sign-up/SignInSignUpPage';
+import Checkout from './pages/checkout/CheckoutPage';
 import Header from './components/header/Header';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { connect } from 'react-redux';
@@ -35,7 +35,7 @@ const App = ({ setCurrentUser, currentUser }) => {
         return () => {
             unsubscribe();
         };
-    }, []);
+    });
 
     const isUserLogged = () => {
         return currentUser ? <Redirect to="/" /> : <SignInSignUp />;
@@ -43,15 +43,14 @@ const App = ({ setCurrentUser, currentUser }) => {
 
     return (
         <Fragment>
-            <Router>
-                <Header />
-                <Switch>
-                    <Route exact path="/" component={Home} />
-                    <Route exact path="/shop" component={Shop} />
-                    <Route exact path="/signin" render={isUserLogged} />
-                    <Route exact path="/checkout" component={Checkout} />
-                </Switch>
-            </Router>
+            <Header />
+            <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/shop" component={ShopPage} />
+                <Route exact path="/signin" render={isUserLogged} />
+                <Route exact path="/checkout" component={Checkout} />
+                <Route render={() => <h1>404 Not found!</h1>} />
+            </Switch>
         </Fragment>
     );
 };

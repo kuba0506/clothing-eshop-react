@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { MenuListSelectors } from '../../redux/menu-list/menu-list.selectors';
 import MenuItem from '../menu-item/MenuItem';
 import './MenuList.scss';
-import MENU_DATA from './menu-list.data';
 
-const MenuList = () => {
-    const [items] = useState(MENU_DATA);
-
+const MenuList = ({ items }) => {
     return (
         <div className="menu-list">
-            {items.map(item => (
-                <MenuItem key={item.id} item={item} />
-            ))}
+            {items.map(item => {
+                return <MenuItem key={item.id} item={item} />;
+            })}
         </div>
     );
 };
 
-export default MenuList;
+const mapStateToProps = createStructuredSelector({
+    items: MenuListSelectors.selectMenuListItems
+});
+
+export default connect(mapStateToProps)(MenuList);
