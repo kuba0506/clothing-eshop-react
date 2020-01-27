@@ -1,12 +1,12 @@
 import React from 'react';
-import './HomePage.scss';
-import MenuList from '../../components/menu-list/MenuList'
+import MenuList from '../../components/menu-list/MenuList';
+import {HomePageContainer} from './HomePage.styles';
 
 const Home = () => {
     return (
-        <div className="homepage">
+        <HomePageContainer>
             <MenuList />
-        </div>
+        </HomePageContainer>
     );
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
+import { HeaderContainer, LogoContainer, OptionsContainer, OptionLink } from './Header.styles';
 import Cart from '../cart/Cart';
 import CartIcon from '../cart-icon/CartIcon';
 import './Header.scss';
@@ -13,13 +13,11 @@ import { UserSelectors } from '../../redux/user/user.selectors';
 const Header = ({ currentUser, hidden }) => {
     const renderSignInSingOut = () => {
         return currentUser ? (
-            <div className="option" onClick={() => auth.signOut()}>
+            <OptionLink as="div" onClick={() => auth.signOut()}>
                 SIGN OUT
-            </div>
+            </OptionLink>
         ) : (
-            <Link className="option" to="/signin">
-                SIGN IN
-            </Link>
+            <OptionLink to="/signin">SIGN IN</OptionLink>
         );
     };
 
@@ -28,22 +26,22 @@ const Header = ({ currentUser, hidden }) => {
     };
 
     return (
-        <div className="header">
-            <Link to="/" className="logo-container">
+        <HeaderContainer>
+            <LogoContainer to="/">
                 <Logo className="logo" />
-            </Link>
-            <div className="options">
-                <Link to="/shop" className="option">
+            </LogoContainer>
+            <OptionsContainer>
+                <OptionLink to="/shop">
                     SHOP
-                </Link>
-                <Link to="/shop" className="option">
+                </OptionLink>
+                <OptionLink to="/shop">
                     CONTACT
-                </Link>
+                </OptionLink>
                 {renderSignInSingOut()}
                 <CartIcon />
-            </div>
+            </OptionsContainer>
             {renderCartDropdown()}
-        </div>
+        </HeaderContainer>
     );
 };
 

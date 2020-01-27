@@ -53,4 +53,9 @@ export const sigInWithGoogle = async cbk => {
     cbk && cbk();
 };
 
+export const addCollectionAndDocuments = (collectionKey, objectsToAdd) => {
+    const collectionRef = firestore.collection(collectionKey);
+    console.log(collectionRef);
+};
+
 export default firebase;
