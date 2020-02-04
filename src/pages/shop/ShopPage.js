@@ -1,30 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { updateCollections } from '../../redux/shop/shop.actions';
+import { createStructuredSelector } from 'reselect';
+import { fetchCollectionsStartAsync } from '../../redux/shop/shop.actions';
+import { ShopSelectors } from '../../redux/shop/shop.selectors';
 import CollectionsOverview from '../../components/collections-overview/CollectionsOverview';
 import CollectionPage from '../collection/CollectionPage';
 import Spinner from '../../components/spinner/Spinner';
-import { firestore, convertCollectionsSnapshotToMap } from '../../firebase/firebase.utils';
 
 const CollectionsOverviewWithSpinner = Spinner(CollectionsOverview);
 const CollectionPageWithSpinner = Spinner(CollectionPage);
 
-const ShopPage = ({ match, updateCollections }) => {
-    const [isLoading, setLoading] = useState(true);
-    
+const ShopPage = ({ match, isLoading, fetchCollectionsStartAsync }) => {
     useEffect(() => {
-        const collectionRef = firestore.collection('collections');
-
-        const unsubscribe = collectionRef.onSnapshot(async snapShot => {
-            const collectionMap = convertCollectionsSnapshotToMap(snapShot);
-            updateCollections(collectionMap);
-            setLoading(false);
-        });
-
-        return () => {
-            unsubscribe();
-        };
+        fetchCollectionsStartAsync();
     }, []);
 
     return (
@@ -42,8 +31,12 @@ const ShopPage = ({ match, updateCollections }) => {
     );
 };
 
-const mapDispatchToProps = dispatch => ({
-    updateCollections: collectionsMap => dispatch(updateCollections(collectionsMap))
+const mapStateToProps = createStructuredSelector({
+    isLoading: ShopSelectors.selectIsCollectionFetching
 });
 
-export default connect(null, mapDispatchToProps)(ShopPage);
+const mapDispatchToProps = dispatch => ({
+    fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShopPage);

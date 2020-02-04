@@ -33,10 +33,6 @@ const App = ({ setCurrentUser, currentUser, collectionArray }) => {
             });
 
             setCurrentUser(userAuth);
-            // addCollectionAndDocuments(
-            //     'collections',
-            //     collectionArray.map(({ title, items }) => ({ title, items }))
-            // );
         });
 
         return () => {
