@@ -7,12 +7,13 @@ import ShopPage from './pages/shop/ShopPage';
 import SignInSignUp from './pages/sing-in-sign-up/SignInSignUpPage';
 import Checkout from './pages/checkout/CheckoutPage';
 import Header from './components/header/Header';
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument, addCollectionAndDocuments } from './firebase/firebase.utils';
 import { connect } from 'react-redux';
 import { UserActions } from './redux/user/user.actions';
 import { UserSelectors } from './redux/user/user.selectors';
+import { ShopSelectors } from './redux/shop/shop.selectors';
 
-const App = ({ setCurrentUser, currentUser }) => {
+const App = ({ setCurrentUser, currentUser, collectionArray }) => {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(async userAuth => {
             if (!userAuth) {
@@ -30,12 +31,18 @@ const App = ({ setCurrentUser, currentUser }) => {
                     ...snapShot.data()
                 });
             });
+
+            setCurrentUser(userAuth);
+            // addCollectionAndDocuments(
+            //     'collections',
+            //     collectionArray.map(({ title, items }) => ({ title, items }))
+            // );
         });
 
         return () => {
             unsubscribe();
         };
-    });
+    }, []);
 
     const isUserLogged = () => {
         return currentUser ? <Redirect to="/" /> : <SignInSignUp />;
@@ -56,7 +63,8 @@ const App = ({ setCurrentUser, currentUser }) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-    currentUser: UserSelectors.selectCurrentUser
+    currentUser: UserSelectors.selectCurrentUser,
+    collectionArray: ShopSelectors.selectCollectionsForPreview
 });
 
 const mapDispatchToProps = dispatch => ({

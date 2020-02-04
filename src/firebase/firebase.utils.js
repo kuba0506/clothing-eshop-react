@@ -53,9 +53,34 @@ export const sigInWithGoogle = async cbk => {
     cbk && cbk();
 };
 
-export const addCollectionAndDocuments = (collectionKey, objectsToAdd) => {
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
     const collectionRef = firestore.collection(collectionKey);
-    console.log(collectionRef);
+    // create batch object to group many operations in one request
+    const batch = firestore.batch();
+    objectsToAdd.forEach(obj => {
+        const newDocRef = collectionRef.doc();
+        batch.set(newDocRef, obj);
+    });
+
+    // fire batch, returns promise
+    return await batch.commit();
+};
+
+export const convertCollectionsSnapshotToMap = collections => {
+    const transformedCollection = collections.docs.map(doc => {
+        const { title, items } = doc.data();
+        return {
+            routeName: encodeURI(title.toLowerCase()),
+            id: doc.id,
+            title,
+            items
+        };
+    });
+
+    return transformedCollection.reduce((accumulator, collectionObject) => {
+        accumulator[collectionObject.title.toLowerCase()] = collectionObject;
+        return accumulator;
+    }, {});
 };
 
 export default firebase;
