@@ -1,17 +1,11 @@
 import React, { useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import { fetchCollectionsStartAsync } from '../../redux/shop/shop.actions';
-import { ShopSelectors } from '../../redux/shop/shop.selectors';
-import CollectionsOverview from '../../components/collections-overview/CollectionsOverview';
-import CollectionPage from '../collection/CollectionPage';
-import Spinner from '../../components/spinner/Spinner';
+import CollectionsOverviewContainer from '../../components/collections-overview/CollectionsOverviewContainer';
+import CollectionPageContainer from '../collection/CollectionsPageContainer';
 
-const CollectionsOverviewWithSpinner = Spinner(CollectionsOverview);
-const CollectionPageWithSpinner = Spinner(CollectionPage);
-
-const ShopPage = ({ match, isLoading, fetchCollectionsStartAsync }) => {
+const ShopPage = ({ match, fetchCollectionsStartAsync }) => {
     useEffect(() => {
         fetchCollectionsStartAsync();
     }, []);
@@ -21,22 +15,18 @@ const ShopPage = ({ match, isLoading, fetchCollectionsStartAsync }) => {
             <Route
                 exact
                 path={`${match.path}`}
-                render={props => <CollectionsOverviewWithSpinner isLoading={isLoading} {...props} />}
+                component={CollectionsOverviewContainer}
             />
             <Route
                 path={`${match.path}/:collectionId`}
-                render={props => <CollectionPageWithSpinner isLoading={isLoading} {...props} />}
+                component={CollectionPageContainer}
             />
         </div>
     );
 };
 
-const mapStateToProps = createStructuredSelector({
-    isLoading: ShopSelectors.selectIsCollectionFetching
-});
-
 const mapDispatchToProps = dispatch => ({
     fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShopPage);
+export default connect(null, mapDispatchToProps)(ShopPage);
