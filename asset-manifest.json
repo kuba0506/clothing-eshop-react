@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/clothing-eshop-react/static/css/main.1f63ad4f.chunk.css",
+    "main.js": "/clothing-eshop-react/static/js/main.a307978d.chunk.js",
+    "main.js.map": "/clothing-eshop-react/static/js/main.a307978d.chunk.js.map",
+    "runtime-main.js": "/clothing-eshop-react/static/js/runtime-main.13712b1c.js",
+    "runtime-main.js.map": "/clothing-eshop-react/static/js/runtime-main.13712b1c.js.map",
+    "static/js/2.136e2acf.chunk.js": "/clothing-eshop-react/static/js/2.136e2acf.chunk.js",
+    "static/js/2.136e2acf.chunk.js.map": "/clothing-eshop-react/static/js/2.136e2acf.chunk.js.map",
+    "index.html": "/clothing-eshop-react/index.html",
+    "precache-manifest.a9cdcaa4f65ecfce231ab32437c6f1cf.js": "/clothing-eshop-react/precache-manifest.a9cdcaa4f65ecfce231ab32437c6f1cf.js",
+    "service-worker.js": "/clothing-eshop-react/service-worker.js",
+    "static/css/main.1f63ad4f.chunk.css.map": "/clothing-eshop-react/static/css/main.1f63ad4f.chunk.css.map",
+    "static/media/crown.19ef7b17.svg": "/clothing-eshop-react/static/media/crown.19ef7b17.svg",
+    "static/media/shopping-bag.30f07071.svg": "/clothing-eshop-react/static/media/shopping-bag.30f07071.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.13712b1c.js",
+    "static/js/2.136e2acf.chunk.js",
+    "static/css/main.1f63ad4f.chunk.css",
+    "static/js/main.a307978d.chunk.js"
+  ]
+}
